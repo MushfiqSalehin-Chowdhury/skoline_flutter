@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:skoline/responseData/UserResponse.dart';
 
-class Home extends StatelessWidget {
-  Home(this.userResponse);
-  UserResponse userResponse;
+class Friends extends StatelessWidget {
+  Friends(this.listType);
+  final String listType;
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -13,7 +13,7 @@ class Home extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Text(
-              userResponse.user.childName,
+              listType,
               style: Theme.of(context).textTheme.display1,
             ),
           ],

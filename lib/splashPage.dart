@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import 'login.dart';
 
 // Define a custom Form widget.
-class splashPage extends StatefulWidget {
+class SplashPage extends StatefulWidget {
   @override
-  SplashFormState createState() => SplashFormState();
+  SplashPageState createState() => SplashPageState();
 }
 
 // Define a corresponding State class.
 // This class holds data related to the form.
-class SplashFormState extends State<splashPage> {
+class SplashPageState extends State<SplashPage> {
   // Define the focus node. To manage the lifecycle, create the FocusNode in
   // the initState method, and clean it up in the dispose method.
 
   Timer _timer;
 
-  SplashFormState() {
+  SplashPageState() {
     _timer = new Timer(const Duration(seconds: 3), () {
       setState(() {
         Navigator.pushReplacement(context, SlideLeftRoute(page: Login()));

@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skoline/responseData/UserResponse.dart';
 import 'package:skoline/responseData/LogInResponse.dart';
-import 'signUp.dart';
 import 'homePage.dart';
+import 'signUp.dart';
 import 'package:skoline/networkCalls/AllHttpNetworkCalls.dart';
 import 'package:skoline/SharedData/Token.dart';
 
@@ -129,7 +129,7 @@ class Login extends StatelessWidget {
 
   void showUser(BuildContext context) async{
     UserResponse userResponse= await getUser("profile",token.getToken);
-    Navigator.pushReplacement(context, SlideLeftRoute(page: HomePage(userResponse: userResponse)));
+    Navigator.pushReplacement(context, SlideLeftRoute(page: Homepage() ));
     print(userResponse.user.childName);
   }
 }

@@ -4,22 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:skoline/login.dart';
 import 'package:skoline/splashPage.dart';
 
-void main() {
-
-  runApp(Skoline());
-
-  const timeout = const Duration(seconds: 3);
-  const ms = const Duration(milliseconds: 1);
-  int milliseconds;
-
-  var duration = milliseconds == null ? timeout : ms * milliseconds;
-  new Timer(duration, handleTimeout);
-
-}
-
-void handleTimeout() {  // callback function
-  Login();
-}
+void main() =>runApp(Skoline());
 
 class Skoline extends StatelessWidget {
   @override
@@ -28,13 +13,7 @@ class Skoline extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.cyan,
       ),
-      home:splashPage(),
-
+      home: SplashPage(),
     );
   }
-
 }
-
-
-
-
