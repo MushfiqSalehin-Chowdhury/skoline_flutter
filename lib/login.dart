@@ -7,25 +7,13 @@ import 'homePage.dart';
 import 'package:skoline/networkCalls/AllHttpNetworkCalls.dart';
 import 'package:skoline/SharedData/Token.dart';
 
-
-
-
 // Define a custom Form widget.
-class Login extends StatefulWidget {
-  @override
-  _MyCustomFormState createState() => _MyCustomFormState();
-}
+class Login extends StatelessWidget {
 
-// Define a corresponding State class.
-// This class holds data related to the form.
-class _MyCustomFormState extends State<Login> {
 
   TextEditingController userName= new TextEditingController();
   TextEditingController dob= new TextEditingController();
   Token token=new Token();
-
-  Future<LogInResponse> loginData;
-  Future<UserResponse> userData;
 
   @override
   Widget build(BuildContext context) {
@@ -93,20 +81,18 @@ class _MyCustomFormState extends State<Login> {
               padding: const EdgeInsets.all(20.0),
               child: RaisedButton(
                   color: Colors.red,
-                  onPressed: () {
-                    FutureBuilder<LogInResponse>(
-                      future:loginData=getToken("login", userName.text, dob.text),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          showUser();
-                          token.setToken(snapshot.data.token);
-                        } else if (snapshot.hasError) {
-                          return Text("${snapshot.error}");
-                        }
-                        // By default, show a loading spinner.
-                        return CircularProgressIndicator();
-                      },
-                    );
+                  onPressed: (
+
+                      )  async {
+                    Map map = new Map();
+                    map['unique_name'] = userName.text;
+                    map['date_of_birth'] = dob.text;
+
+                    LogInResponse p = await getToken("login", body: map);
+
+                    print(p.token);
+                    token.setToken=p.token;
+                    showUser(context);
                   },
                   child: Text(
                     "Log in",
@@ -141,21 +127,10 @@ class _MyCustomFormState extends State<Login> {
     );
   }
 
-  void showUser() {
-
-    FutureBuilder<UserResponse>(
-      future: userData=getUser("profile",token.getToken),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          Navigator.pushReplacement(context, SlideLeftRoute(page: HomePage(text: snapshot.data.user.uniqueName,)));
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
-        }
-        // By default, show a loading spinner.
-        return CircularProgressIndicator();
-      },
-    );
-
+  void showUser(BuildContext context) async{
+    UserResponse userResponse= await getUser("profile",token.getToken);
+    Navigator.pushReplacement(context, SlideLeftRoute(page: HomePage(userResponse: userResponse)));
+    print(userResponse.user.childName);
   }
 }
 

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:skoline/login.dart';
+import 'package:skoline/responseData/UserResponse.dart';
 
 class HomePage extends StatefulWidget {
 
-  final String text;
+  UserResponse userResponse;
 
   // receive data from the FirstScreen as a parameter
-  HomePage({Key key, @required this.text}) : super(key: key);
-
+  HomePage({Key key, @required this.userResponse}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -19,14 +20,6 @@ class _MyStatefulWidgetState extends State<HomePage> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static List<Widget> _widgetOptions = <Widget>[
 
-    Text(
-      ' Business',
-      style: optionStyle,
-    ),
-    Text(
-      'School',
-      style: optionStyle,
-    ),
   ];
 
   void _onItemTapped(int index) {
@@ -45,12 +38,6 @@ class _MyStatefulWidgetState extends State<HomePage> {
         child: Column (
           children: <Widget>[
             _widgetOptions.elementAt(_selectedIndex),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              widget.text
-            ),
-          )
           ],
         )
 

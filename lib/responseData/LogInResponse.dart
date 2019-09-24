@@ -13,7 +13,7 @@ class LogInResponse {
     message = json['message'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> toMap() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['token'] = this.token;
     data['status'] = this.status;
