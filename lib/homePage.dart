@@ -1,12 +1,18 @@
 
 import 'package:flutter/material.dart';
+import 'package:skoline/responseData/KlassesResponse.dart';
+import 'package:skoline/responseData/UserResponse.dart';
 import 'navigationPages/home.dart';
-import 'navigationPages/friends.dart';
-import 'navigationPages/location.dart';
+import 'navigationPages/profile.dart';
 
 
 
 class Homepage extends StatefulWidget {
+
+  UserResponse userResponse;
+  KlassesResponse klassesResponse;
+
+  Homepage({Key key, this.userResponse,this.klassesResponse}) : super(key: key);
 
   @override
   _DashboardScreenState createState() => new _DashboardScreenState();
@@ -48,9 +54,8 @@ class _DashboardScreenState extends State<Homepage> {
 
       body: new PageView(
         children: [
-          new Home("Home screen"),
-          new Location("Location screen"),
-          new Friends("Friends screen"),
+          new Home(widget.klassesResponse),
+          new Profile(widget.userResponse),
         ],
         onPageChanged: onPageChanged,
         controller: _pageController,
@@ -75,22 +80,11 @@ class _DashboardScreenState extends State<Homepage> {
                 )),
             new BottomNavigationBarItem(
                 icon: new Icon(
-                  Icons.location_on,
+                  Icons.person,
                   color: const Color(0xFFFFFFFF),
                 ),
                 title: new Text(
-                  "Location",
-                  style: new TextStyle(
-                    color: const Color(0xFFFFFFFF),
-                  ),
-                )),
-            new BottomNavigationBarItem(
-                icon: new Icon(
-                  Icons.people,
-                  color: const Color(0xFFFFFFFF),
-                ),
-                title: new Text(
-                  "Friends",
+                  "Profile",
                   style: new TextStyle(
                     color: const Color(0xFFFFFFFF),
                   ),

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:skoline/responseData/KlassesResponse.dart';
 import 'package:skoline/responseData/UserResponse.dart';
 import 'package:skoline/responseData/LogInResponse.dart';
 import 'homePage.dart';
@@ -88,10 +89,10 @@ class Login extends StatelessWidget {
                     map['unique_name'] = userName.text;
                     map['date_of_birth'] = dob.text;
 
-                    LogInResponse p = await getToken("login", body: map);
+                    LogInResponse loginResponse = await getToken("users/login", body: map);
 
-                    print(p.token);
-                    token.setToken=p.token;
+                    print(loginResponse.token);
+                    token.setToken=loginResponse.token;
                     showUser(context);
                   },
                   child: Text(
@@ -128,8 +129,9 @@ class Login extends StatelessWidget {
   }
 
   void showUser(BuildContext context) async{
-    UserResponse userResponse= await getUser("profile",token.getToken);
-    Navigator.pushReplacement(context, SlideLeftRoute(page: Homepage() ));
+    UserResponse userResponse= await getUser("users/profile",token.getToken);
+    KlassesResponse klassesResponse= await getKlasses("klasses",token.getToken);
+    Navigator.pushReplacement(context, SlideLeftRoute(page: Homepage(userResponse: userResponse,klassesResponse: klassesResponse)));
     print(userResponse.user.childName);
   }
 }

@@ -43,6 +43,7 @@ flutter:
     - assets/images/loading_icon.gif
     - assets/images/loading.gif
     - assets/images/fajar.gif
+    - assets/images/logo_skoline.png
 
 
   # The following line ensures that the Material Icons font is
