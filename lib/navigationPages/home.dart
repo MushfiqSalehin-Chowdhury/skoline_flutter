@@ -11,49 +11,75 @@ class Home extends StatelessWidget {
   Home(this.klassesResponse);
   KlassesResponse klassesResponse;
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Container(
-            child: Column(
+  Widget build(BuildContext context){
+    return new Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children:<Widget>[
+            Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                  alignment: Alignment.center,
+                child: Column(
+                    children: [
+                      Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                          color: Colors.cyan,
+                          child: Column(
+                            children: <Widget>[
+                              new Image(
+                                  image: AssetImage("assets/images/logo_skoline.png")),
+                              Text("Pilih Topik Berdasarkan Kelas")
+                            ],
+                          ))
+                    ]
+                ),
+              ),
+            ),
 
-      children: [
-        Column(
-          children: [
-            Card(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(8.0))),
-                color: Colors.cyan,
+            Expanded(
+              child: Container(
+                alignment: Alignment.center,
                 child: Column(
                   children: <Widget>[
-                    new Image(
-                        image: AssetImage("assets/images/logo_skoline.png")
+                    Expanded(
+                      child: new GridView.count(
+                        crossAxisCount: 2,
+                        shrinkWrap: true,
+                        children: new List<Widget>.generate(6, (index) {
+                          return new GridTile(
+
+                            child: new Card(
+                                margin: EdgeInsets.fromLTRB(5.0,0.0, 5.0, 30.0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(8.0))),
+                                child: new Image.network(RootbaseUrl+klassesResponse.klasses.elementAt(index).bannerUrl,
+                                  fit: BoxFit.fill,)
+                            ),
+                          );
+                        }),
+                      ),
                     ),
-                    Text(
-                      "Pilih Topik Berdasarkan Kelas"
-                    )
                   ],
-                )
-            )
-          ],
-        ),
-        Column(
-          children:<Widget>[
-            new GridView.count(
-              crossAxisCount: 2,
-              children: new List<Widget>.generate(4, (index) {
-                return new GridTile(
-                  child: new Card(
-                      color: Colors.blue.shade200,
-                      child: new Center(
-                        child: new Text('tile $index'),
-                      )
-                  ),
-                );
-              }),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                alignment: Alignment.center,
+                height: 75.0,
+                width: double.infinity,
+                color: Colors.blue,
+                child: Text(
+                  'Anything want in the bottom',
+                  textAlign: TextAlign.center,
+                ),
+              ),
             ),
           ],
         )
-      ],
-    )));
+    );
   }
 }
