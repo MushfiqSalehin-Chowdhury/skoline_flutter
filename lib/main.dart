@@ -1,11 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:skoline/login.dart';
 import 'package:skoline/splashPage.dart';
 
-void main() =>runApp(Skoline());
 
+Future main() async {
+
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  runApp(new Skoline());
+
+}
 class Skoline extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

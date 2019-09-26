@@ -18,113 +18,125 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-        body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          children: [
-            // The first text field is focused on as soon as the app starts.
-            SizedBox(height: 100),
-            Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0.0, 0.0, 20.0, 0.0),
-                  child: new Image(
-                      image: new AssetImage("assets/images/fajar.gif"),
-                      fit: BoxFit.cover),
-                )),
-            TextFormField(
-              controller: userName ,
-                decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
-              labelText: 'Enter your name',
-              labelStyle: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 20
-              ),
+    MediaQueryData media = MediaQuery.of(context);
 
-              focusedBorder: OutlineInputBorder(
-                borderSide: new BorderSide(color: Colors.blueAccent),
-                borderRadius:new  BorderRadius.circular(5),
-              ),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white),
-                borderRadius: BorderRadius.circular(10),
-              ),
-            )),
-            // The second text field is focused on when a user taps
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0.0, 20.0, 0.0, 0.0),
-              child: TextFormField(
-                controller: dob,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    labelText: 'dd/mm/yyyy',
-                    labelStyle: TextStyle(
-                        color: Colors.blueAccent,
-                        fontSize: 20
-                    ),
+    final Size screenSize = media.size;
+    return new Scaffold(
+      body: new Container(
+          padding: new EdgeInsets.all(20.0),
 
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: new BorderSide(color: Colors.blueAccent),
-                      borderRadius:new  BorderRadius.circular(5),
-                    ),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: RaisedButton(
-                  color: Colors.red,
-                  onPressed: (
-
-                      )  async {
-                    Map map = new Map();
-                    map['unique_name'] = userName.text;
-                    map['date_of_birth'] = dob.text;
-
-                    LogInResponse loginResponse = await getToken("users/login", body: map);
-
-                    print(loginResponse.token);
-                    token.setToken=loginResponse.token;
-                    showUser(context);
-                  },
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  )),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(context, SlideLeftRoute(page: SignUp()));
-                },
-                child: Text(
-                  'Creat your account',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white,
-                    decoration: TextDecoration.underline,
-                  ),
+          child: new Form(
+            child: new ListView(
+              children: <Widget>[
+                new Container(
+                    padding: new EdgeInsets.all(20.0),
+                    child:new Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        new Image(
+                            height: 200,
+                            image: new AssetImage("assets/images/fajar.gif"),
+                            fit: BoxFit.fitHeight),
+                      ],
+                    )
                 ),
-              ),
+                new Container(
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: new TextFormField(
+                        controller: userName ,
+                        keyboardType: TextInputType.text,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Colors.white,
+                          labelText: 'Enter your name',
+                          labelStyle: TextStyle(
+                              color: Colors.black38,
+                              fontSize: 15
+                          ),
+
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: new BorderSide(color: Colors.black),
+                            borderRadius:new  BorderRadius.circular(5),
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          icon: new Icon(Icons.person)
+                        ))
+                ),
+                new Container(
+                  padding: const EdgeInsets.only(top:10.0),
+                  child: TextFormField(
+                      controller: dob,
+                      keyboardType: TextInputType.datetime,
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: Colors.white,
+                        labelText: 'dd/mm/yyyy',
+                        labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontSize: 15
+                        ),
+
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: new BorderSide(color: Colors.black),
+                          borderRadius:new  BorderRadius.circular(5),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(color: Colors.white),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        icon: new Icon(Icons.date_range)
+                      )),
+                ),
+                new Container(
+                  width: screenSize.width,
+                  child:new Column(
+                    children: <Widget>[
+                      new Container(
+                        margin: const EdgeInsets.only(left: 10.0,top: 20.0),
+                        child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            new Container(
+                              height:50.0,
+                              width: 210.0,
+                              child: new RaisedButton(
+                                  color: Colors.red,
+                                  onPressed: ()  async {
+                                    Map map = new Map();
+                                    map['unique_name'] = userName.text;
+                                    map['date_of_birth'] = dob.text;
+
+                                    LogInResponse loginResponse = await getToken("users/login", body: map);
+
+                                    print(loginResponse.token);
+                                    token.setToken=loginResponse.token;
+                                    showUser(context);
+                                  },
+                                  child: Text(
+                                    "Log in",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  )),
+
+                            ),
+
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
             ),
-            SizedBox(height: 100)
-          ],
-        ),
-        // This trailing comma makes auto-formatting nicer for build methods.
+          )
       ),
-      backgroundColor: Colors.amber[800],
+      backgroundColor: Colors.amber[700],
     );
   }
 
